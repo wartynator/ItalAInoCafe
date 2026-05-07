@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Fraunces } from "next/font/google";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { Providers } from "./providers";
-import { Nav } from "@/components/Nav";
+import { AppShell } from "@/components/AppShell";
 import "./globals.css";
 
 const inter = Inter({
@@ -26,12 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <ConvexAuthNextjsServerProvider>
       <html lang="en" className={`${inter.variable} ${fraunces.variable}`}>
-        <body className="min-h-screen pb-24 md:pb-0">
+        <body className="min-h-screen">
           <Providers>
-            <Nav />
-            <main className="mx-auto w-full max-w-[1100px] px-5 pt-6 md:pt-10">
-              {children}
-            </main>
+            <AppShell>{children}</AppShell>
           </Providers>
         </body>
       </html>
