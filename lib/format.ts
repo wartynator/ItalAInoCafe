@@ -16,6 +16,16 @@ export const RATING_LABELS: Record<"environment" | "coffee" | "location", string
   location: "Location",
 };
 
+// "Nico Caffé, 1181/3, ..., Košice, ..." -> "Nico Caffé · Košice"
+export function placeAndCity(s: string): string {
+  if (!s) return "";
+  const place = s.split(",")[0]?.trim() ?? "";
+  const city = cityFromAddress(s);
+  if (!city) return place;
+  if (!place || place.toLowerCase() === city.toLowerCase()) return city;
+  return `${place} · ${city}`;
+}
+
 // "Nico Caffé, 1181/3, ..., Košice, District of Košice I, Region of Košice, ..., Slovakia" -> "Košice"
 export function cityFromAddress(s: string): string {
   if (!s) return "";

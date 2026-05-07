@@ -20,8 +20,10 @@ export default function MePage() {
     return { count: visits.length, avg, cafes: cafes.size };
   })();
 
-  const display = me?.name ?? me?.email ?? "You";
-  const initial = (me?.name ?? me?.email ?? "?").trim().charAt(0).toUpperCase();
+  const localFromEmail = (me?.email ?? "").split("@")[0] ?? "";
+  const display = me?.name?.trim() || localFromEmail || "You";
+  const initial = (display || "?").trim().charAt(0).toUpperCase();
+  const showEmailSubtitle = !!me?.email && me.email !== display;
 
   return (
     <div className="space-y-10">
@@ -34,7 +36,7 @@ export default function MePage() {
             <h1 className="font-display text-3xl tracking-tight md:text-4xl">
               {display}
             </h1>
-            {me?.email && (
+            {showEmailSubtitle && (
               <p className="text-sm text-[var(--color-ink-soft)]">{me.email}</p>
             )}
           </div>

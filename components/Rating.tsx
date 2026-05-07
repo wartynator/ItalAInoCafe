@@ -11,9 +11,9 @@ function Bean({
   filled: boolean;
   className?: string;
 }) {
-  const stroke = filled ? "var(--color-star)" : "var(--color-line)";
   const fill = filled ? "var(--color-star)" : "transparent";
-  const seam = filled ? "var(--color-bg)" : "var(--color-line)";
+  const stroke = filled ? "var(--color-star)" : "var(--color-ink-soft)";
+  const seam = filled ? "var(--color-bg)" : "var(--color-ink-soft)";
   return (
     <svg
       width={size}
@@ -22,23 +22,24 @@ function Bean({
       className={className}
       aria-hidden
     >
-      <ellipse
-        cx="12"
-        cy="12"
-        rx="6.2"
-        ry="9.2"
-        transform="rotate(28 12 12)"
-        fill={fill}
-        stroke={stroke}
-        strokeWidth="2"
-      />
-      <path
-        d="M8.6 5.4 L 15.4 18.6"
-        stroke={seam}
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        fill="none"
-      />
+      <g transform="rotate(28 12 12)">
+        <ellipse
+          cx="12"
+          cy="12"
+          rx="6.2"
+          ry="9.4"
+          fill={fill}
+          stroke={stroke}
+          strokeWidth="1.8"
+        />
+        <path
+          d="M12 3.5 C 9.5 8, 9.5 16, 12 20.5"
+          stroke={seam}
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          fill="none"
+        />
+      </g>
     </svg>
   );
 }
