@@ -25,23 +25,25 @@ export function Nav() {
             ItalAIno<span className="text-[var(--color-clay)]">.</span>café
           </Link>
           <nav className="flex items-center gap-1">
-            {tabs.map((t) => {
-              const active = t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
-              return (
-                <Link
-                  key={t.href}
-                  href={t.href}
-                  className={
-                    "px-3 py-1.5 rounded-full text-sm transition-colors " +
-                    (active
-                      ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
-                      : "text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]")
-                  }
-                >
-                  {t.label}
-                </Link>
-              );
-            })}
+            <Authenticated>
+              {tabs.map((t) => {
+                const active = t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
+                return (
+                  <Link
+                    key={t.href}
+                    href={t.href}
+                    className={
+                      "px-3 py-1.5 rounded-full text-sm transition-colors " +
+                      (active
+                        ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
+                        : "text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]")
+                    }
+                  >
+                    {t.label}
+                  </Link>
+                );
+              })}
+            </Authenticated>
             <AuthButton />
           </nav>
         </div>
@@ -56,25 +58,27 @@ export function Nav() {
       </header>
 
       {/* Bottom nav (mobile) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 border-t border-[var(--color-line)] bg-[var(--color-bg)]/95 backdrop-blur">
-        <div className="grid grid-cols-4">
-          {tabs.map((t) => {
-            const active = t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
-            return (
-              <Link
-                key={t.href}
-                href={t.href}
-                className={
-                  "flex items-center justify-center py-4 text-sm " +
-                  (active ? "text-[var(--color-ink)]" : "text-[var(--color-ink-soft)]")
-                }
-              >
-                <span className={active ? "font-medium" : ""}>{t.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
+      <Authenticated>
+        <nav className="md:hidden fixed bottom-0 left-0 right-0 z-30 border-t border-[var(--color-line)] bg-[var(--color-bg)]/95 backdrop-blur">
+          <div className="grid grid-cols-4">
+            {tabs.map((t) => {
+              const active = t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
+              return (
+                <Link
+                  key={t.href}
+                  href={t.href}
+                  className={
+                    "flex items-center justify-center py-4 text-sm " +
+                    (active ? "text-[var(--color-ink)]" : "text-[var(--color-ink-soft)]")
+                  }
+                >
+                  <span className={active ? "font-medium" : ""}>{t.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+      </Authenticated>
     </>
   );
 }
