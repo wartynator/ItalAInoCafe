@@ -31,8 +31,11 @@ export default function MePage() {
             {initial}
           </div>
           <div className="min-w-0">
-            <h1 className="font-display text-3xl tracking-tight md:text-4xl">
-              {display}
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-clay)]">
+              Il profilo
+            </p>
+            <h1 className="font-display-italic text-4xl leading-tight md:text-5xl">
+              Ciao, {display}
             </h1>
             {me?.email && (
               <p className="text-sm text-[var(--color-ink-soft)]">{me.email}</p>
@@ -50,7 +53,9 @@ export default function MePage() {
       </section>
 
       <section>
-        <h2 className="font-display text-2xl tracking-tight">Your visits</h2>
+        <h2 className="font-display-italic text-3xl leading-tight">
+          Il tuo diario
+        </h2>
         <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
           Edit or remove anything you&apos;ve logged.
         </p>

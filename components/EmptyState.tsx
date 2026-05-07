@@ -15,9 +15,11 @@ export function EmptyState({
     <div className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-12 text-center">
       <div
         aria-hidden
-        className="mx-auto mb-6 h-16 w-16 rounded-full"
-        style={{ background: "var(--color-sage-soft)" }}
-      />
+        className="mx-auto mb-6 grid h-16 w-16 place-items-center rounded-full font-display-italic text-3xl text-[var(--color-clay)]"
+        style={{ background: "var(--color-clay-soft)" }}
+      >
+        ☕
+      </div>
       <h2 className="font-display text-2xl tracking-tight">{title}</h2>
       <p className="mx-auto mt-2 max-w-md text-[var(--color-ink-soft)]">{body}</p>
       {ctaHref && ctaLabel && (

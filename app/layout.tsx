@@ -17,9 +17,9 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "ItalAIno Café — a quiet log of good coffee",
+  title: "ItalAIno · Caffè — il diario del buon caffè",
   description:
-    "A small place to log cafés you've visited — environment, coffee, and location, with notes, photos, and a map.",
+    "Un piccolo diario dei caffè visitati — atmosfera, caffè, posizione, con note, foto e una mappa.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
