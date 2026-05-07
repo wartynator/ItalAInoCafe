@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { RatingDots } from "./Rating";
 import { TagChip } from "./TagChip";
-import { formatRating, cityFromAddress } from "@/lib/format";
+import { formatRating, placeAndCity } from "@/lib/format";
 
 type CafeSummary = {
   _id: string;
@@ -35,7 +35,7 @@ export function CafeCard({
             {cafe.name}
           </h3>
           <p className="text-sm text-[var(--color-ink-soft)] mt-1 truncate">
-            {cityFromAddress(cafe.address)}
+            {placeAndCity(cafe.address)}
           </p>
         </div>
         <div className="text-right shrink-0">

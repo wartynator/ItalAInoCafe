@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { RatingDots } from "./Rating";
 import { TagChip } from "./TagChip";
-import { formatDate, RATING_LABELS, cityFromAddress } from "@/lib/format";
+import { formatDate, RATING_LABELS, placeAndCity } from "@/lib/format";
 
 type Visit = {
   _id: string;
@@ -59,7 +59,7 @@ export function VisitCard({
             {visit.cafeName}
           </Link>
           <p className="text-sm text-[var(--color-ink-soft)] mt-1 truncate">
-            {cityFromAddress(visit.cafeAddress)}
+            {placeAndCity(visit.cafeAddress)}
           </p>
         </div>
         <div className="flex flex-col items-end gap-2 shrink-0">
