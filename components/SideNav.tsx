@@ -10,7 +10,7 @@ import { api } from "@/convex/_generated/api";
 const tabs = [
   { href: "/", label: "Feed", desc: "Latest visits" },
   { href: "/cafes", label: "Cafés", desc: "Map & list" },
-  { href: "/new", label: "Log a visit", desc: "Add a new entry" },
+  { href: "/new", label: "New coffee", desc: "Tag a place you've been" },
   { href: "/me", label: "Me", desc: "Your profile" },
 ];
 

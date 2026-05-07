@@ -7,7 +7,7 @@ export default function NewVisitPage() {
     <div className="mx-auto max-w-[640px] space-y-8">
       <header>
         <h1 className="font-display text-4xl tracking-tight md:text-5xl">
-          Log a visit
+          New coffee
         </h1>
         <p className="mt-2 text-[var(--color-ink-soft)]">
           Three ratings, a few words, optionally a photo or two.

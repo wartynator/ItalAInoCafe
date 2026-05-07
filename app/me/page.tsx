@@ -72,7 +72,7 @@ export default function MePage() {
               title="Your log is empty."
               body="Add your first café — it doesn't have to be perfect, just real."
               ctaHref="/new"
-              ctaLabel="Log a visit"
+              ctaLabel="New coffee"
             />
           </div>
         )}
