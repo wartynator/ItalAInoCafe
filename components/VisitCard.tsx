@@ -1,4 +1,10 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import type { Id } from "@/convex/_generated/dataModel";
 import { RatingDots } from "./Rating";
 import { TagChip } from "./TagChip";
 import { formatDate, RATING_LABELS } from "@/lib/format";
@@ -16,9 +22,31 @@ type Visit = {
   visitedAt: number;
 };
 
-export function VisitCard({ visit, showAuthor = true }: { visit: Visit; showAuthor?: boolean }) {
+export function VisitCard({
+  visit,
+  showAuthor = true,
+  canEdit = false,
+}: {
+  visit: Visit;
+  showAuthor?: boolean;
+  canEdit?: boolean;
+}) {
   const overall =
     (visit.ratings.environment + visit.ratings.coffee + visit.ratings.location) / 3;
+  const removeVisit = useMutation(api.visits.remove);
+  const [deleting, setDeleting] = useState(false);
+
+  async function onDelete() {
+    if (deleting) return;
+    if (!confirm("Delete this visit? This cannot be undone.")) return;
+    setDeleting(true);
+    try {
+      await removeVisit({ id: visit._id as Id<"visits"> });
+    } catch (err) {
+      setDeleting(false);
+      alert(err instanceof Error ? err.message : "Could not delete visit.");
+    }
+  }
 
   return (
     <article className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
@@ -34,11 +62,32 @@ export function VisitCard({ visit, showAuthor = true }: { visit: Visit; showAuth
             {visit.cafeAddress}
           </p>
         </div>
-        <div className="text-right shrink-0">
-          <div className="flex justify-end">
+        <div className="flex flex-col items-end gap-2 shrink-0">
+          <div className="flex items-center gap-2">
+            {canEdit && (
+              <div className="flex items-center gap-1">
+                <Link
+                  href={`/visits/${visit._id}/edit`}
+                  aria-label="Edit visit"
+                  title="Edit"
+                  className="grid h-8 w-8 place-items-center rounded-full text-[var(--color-ink-soft)] hover:bg-[var(--color-bg)] hover:text-[var(--color-ink)]"
+                >
+                  <PencilIcon />
+                </Link>
+                <button
+                  onClick={onDelete}
+                  disabled={deleting}
+                  aria-label="Delete visit"
+                  title="Delete"
+                  className="grid h-8 w-8 place-items-center rounded-full text-[var(--color-ink-soft)] hover:bg-[var(--color-clay)]/15 hover:text-[var(--color-clay)] disabled:opacity-50"
+                >
+                  <TrashIcon />
+                </button>
+              </div>
+            )}
             <RatingDots value={overall} />
           </div>
-          <p className="text-xs text-[var(--color-ink-soft)] mt-1 tabular-nums">
+          <p className="text-xs text-[var(--color-ink-soft)] tabular-nums">
             {formatDate(visit.visitedAt)}
             {showAuthor && visit.userName ? ` · ${visit.userName}` : ""}
           </p>
@@ -86,5 +135,46 @@ export function VisitCard({ visit, showAuthor = true }: { visit: Visit; showAuth
         </div>
       )}
     </article>
+  );
+}
+
+function PencilIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M12 20h9" />
+      <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
+    </svg>
+  );
+}
+
+function TrashIcon() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M3 6h18" />
+      <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+      <path d="M10 11v6" />
+      <path d="M14 11v6" />
+    </svg>
   );
 }

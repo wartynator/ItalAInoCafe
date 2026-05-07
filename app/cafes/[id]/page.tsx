@@ -13,6 +13,7 @@ import { formatRating, RATING_LABELS } from "@/lib/format";
 export default function CafePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const cafe = useQuery(api.cafes.get, { id: id as Id<"cafes"> });
+  const me = useQuery(api.users.me);
 
   if (cafe === undefined) {
     return (
@@ -78,6 +79,7 @@ export default function CafePage({ params }: { params: Promise<{ id: string }> }
           {cafe.visits.map((v) => (
             <VisitCard
               key={v._id}
+              canEdit={!!me && me._id === v.userId}
               visit={{
                 _id: v._id,
                 cafeId: cafe._id,

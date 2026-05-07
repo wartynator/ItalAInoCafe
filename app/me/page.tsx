@@ -1,10 +1,7 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { useMutation, useQuery } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import type { Id } from "@/convex/_generated/dataModel";
 import { VisitCard } from "@/components/VisitCard";
 import { EmptyState } from "@/components/EmptyState";
 import { formatRating } from "@/lib/format";
@@ -12,8 +9,6 @@ import { formatRating } from "@/lib/format";
 export default function MePage() {
   const me = useQuery(api.users.me);
   const visits = useQuery(api.visits.myFeed);
-  const removeVisit = useMutation(api.visits.remove);
-  const [pendingDelete, setPendingDelete] = useState<Id<"visits"> | null>(null);
 
   const stats = (() => {
     if (!visits || visits.length === 0) return null;
@@ -27,16 +22,6 @@ export default function MePage() {
 
   const display = me?.name ?? me?.email ?? "You";
   const initial = (me?.name ?? me?.email ?? "?").trim().charAt(0).toUpperCase();
-
-  async function onDelete(id: Id<"visits">) {
-    if (!confirm("Delete this visit? This cannot be undone.")) return;
-    setPendingDelete(id);
-    try {
-      await removeVisit({ id });
-    } finally {
-      setPendingDelete(null);
-    }
-  }
 
   return (
     <div className="space-y-10">
@@ -94,27 +79,12 @@ export default function MePage() {
 
         <div className="mt-6 grid gap-5">
           {visits?.map((v) => (
-            <div key={v._id} className="space-y-2">
-              <VisitCard
-                showAuthor={false}
-                visit={{ ...v, userName: display }}
-              />
-              <div className="flex items-center justify-end gap-3 px-1 text-sm">
-                <Link
-                  href={`/visits/${v._id}/edit`}
-                  className="rounded-full border border-[var(--color-line)] px-4 py-1.5 hover:border-[var(--color-ink-soft)]"
-                >
-                  Edit
-                </Link>
-                <button
-                  onClick={() => onDelete(v._id as Id<"visits">)}
-                  disabled={pendingDelete === v._id}
-                  className="rounded-full border border-[var(--color-clay)] px-4 py-1.5 text-[var(--color-clay)] hover:bg-[var(--color-clay)]/10 disabled:opacity-50"
-                >
-                  {pendingDelete === v._id ? "Deleting…" : "Delete"}
-                </button>
-              </div>
-            </div>
+            <VisitCard
+              key={v._id}
+              showAuthor={false}
+              canEdit
+              visit={{ ...v, userName: display }}
+            />
           ))}
         </div>
       </section>

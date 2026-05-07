@@ -7,6 +7,7 @@ import { EmptyState } from "@/components/EmptyState";
 
 export default function Home() {
   const feed = useQuery(api.visits.recentFeed, { limit: 30 });
+  const me = useQuery(api.users.me);
 
   return (
     <div className="space-y-8">
@@ -29,7 +30,7 @@ export default function Home() {
 
       <div className="grid gap-5">
         {feed?.map((v) => (
-          <VisitCard key={v._id} visit={v} />
+          <VisitCard key={v._id} visit={v} canEdit={!!me && me._id === v.userId} />
         ))}
       </div>
     </div>
