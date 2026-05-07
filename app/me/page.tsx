@@ -25,7 +25,7 @@ export default function MePage() {
 
   return (
     <div className="space-y-10">
-      <section className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6 md:p-8">
+      <section className="rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-6 md:p-8">
         <div className="flex items-center gap-5">
           <div className="grid h-16 w-16 place-items-center rounded-full bg-[var(--color-sage-soft)] font-display text-2xl">
             {initial}
@@ -60,7 +60,7 @@ export default function MePage() {
             {[0, 1].map((i) => (
               <div
                 key={i}
-                className="h-44 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)]"
+                className="h-44 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)]"
               />
             ))}
           </div>

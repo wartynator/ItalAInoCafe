@@ -7,7 +7,7 @@ import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
 import { RatingDots } from "./Rating";
 import { TagChip } from "./TagChip";
-import { formatDate, RATING_LABELS, shortAddress } from "@/lib/format";
+import { formatDate, RATING_LABELS, cityFromAddress } from "@/lib/format";
 
 type Visit = {
   _id: string;
@@ -49,7 +49,7 @@ export function VisitCard({
   }
 
   return (
-    <article className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
+    <article className="rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-6">
       <header className="flex items-start justify-between gap-4">
         <div className="min-w-0">
           <Link
@@ -59,7 +59,7 @@ export function VisitCard({
             {visit.cafeName}
           </Link>
           <p className="text-sm text-[var(--color-ink-soft)] mt-1 truncate">
-            {shortAddress(visit.cafeAddress)}
+            {cityFromAddress(visit.cafeAddress)}
           </p>
         </div>
         <div className="flex flex-col items-end gap-2 shrink-0">
@@ -70,7 +70,7 @@ export function VisitCard({
                   href={`/visits/${visit._id}/edit`}
                   aria-label="Edit visit"
                   title="Edit"
-                  className="grid h-8 w-8 place-items-center rounded-full text-[var(--color-ink-soft)] hover:bg-[var(--color-bg)] hover:text-[var(--color-ink)]"
+                  className="grid h-8 w-8 place-items-center rounded-full text-[var(--color-ink-soft)] hover:bg-[color:var(--color-bg)] hover:text-[var(--color-ink)]"
                 >
                   <PencilIcon />
                 </Link>

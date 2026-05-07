@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { RatingDots } from "./Rating";
 import { TagChip } from "./TagChip";
-import { formatRating, shortAddress } from "@/lib/format";
+import { formatRating, cityFromAddress } from "@/lib/format";
 
 type CafeSummary = {
   _id: string;
@@ -35,7 +35,7 @@ export function CafeCard({
             {cafe.name}
           </h3>
           <p className="text-sm text-[var(--color-ink-soft)] mt-1 truncate">
-            {shortAddress(cafe.address)}
+            {cityFromAddress(cafe.address)}
           </p>
         </div>
         <div className="text-right shrink-0">
@@ -62,7 +62,7 @@ export function CafeCard({
     return (
       <div
         className={
-          "relative block rounded-2xl border bg-[var(--color-surface)] p-6 transition-colors " +
+          "relative block rounded-2xl border bg-[color:var(--color-surface)] p-6 transition-colors " +
           ringClass
         }
       >
@@ -88,7 +88,7 @@ export function CafeCard({
     <Link
       href={`/cafes/${cafe._id}`}
       className={
-        "block rounded-2xl border bg-[var(--color-surface)] p-6 transition-colors " +
+        "block rounded-2xl border bg-[color:var(--color-surface)] p-6 transition-colors " +
         ringClass
       }
     >

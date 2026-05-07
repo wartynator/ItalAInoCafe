@@ -12,7 +12,7 @@ export function EmptyState({
   ctaLabel?: string;
 }) {
   return (
-    <div className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-12 text-center">
+    <div className="rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-12 text-center">
       <div
         aria-hidden
         className="mx-auto mb-6 h-16 w-16 rounded-full"
@@ -23,7 +23,7 @@ export function EmptyState({
       {ctaHref && ctaLabel && (
         <Link
           href={ctaHref}
-          className="mt-6 inline-flex items-center rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm text-[var(--color-bg)]"
+          className="mt-6 inline-flex items-center rounded-full bg-[color:var(--color-ink)] px-5 py-2.5 text-sm text-[color:var(--color-bg)]"
         >
           {ctaLabel}
         </Link>

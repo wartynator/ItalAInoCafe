@@ -67,7 +67,7 @@ export default function CafesPage() {
             className={
               "rounded-full px-3 py-1 text-xs " +
               (tag === null
-                ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
+                ? "bg-[color:var(--color-ink)] text-[color:var(--color-bg)]"
                 : "border border-[var(--color-line)] text-[var(--color-ink-soft)]")
             }
           >
@@ -80,7 +80,7 @@ export default function CafesPage() {
               className={
                 "rounded-full px-3 py-1 text-xs " +
                 (t === tag
-                  ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
+                  ? "bg-[color:var(--color-ink)] text-[color:var(--color-bg)]"
                   : "border border-[var(--color-line)] text-[var(--color-ink-soft)]")
               }
             >

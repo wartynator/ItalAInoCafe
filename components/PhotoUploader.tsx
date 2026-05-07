@@ -43,7 +43,7 @@ export function PhotoUploader({
 
   return (
     <div>
-      <label className="flex h-32 cursor-pointer items-center justify-center rounded-xl border border-dashed border-[var(--color-line)] bg-[var(--color-surface)] text-sm text-[var(--color-ink-soft)] hover:border-[var(--color-ink-soft)]">
+      <label className="flex h-32 cursor-pointer items-center justify-center rounded-xl border border-dashed border-[var(--color-line)] bg-[color:var(--color-surface)] text-sm text-[var(--color-ink-soft)] hover:border-[var(--color-ink-soft)]">
         <input
           type="file"
           accept="image/*"
@@ -66,7 +66,7 @@ export function PhotoUploader({
               <button
                 type="button"
                 onClick={() => onChange(photos.filter((_, j) => j !== i))}
-                className="absolute right-1 top-1 rounded-full bg-[var(--color-bg)]/90 px-2 py-0.5 text-xs"
+                className="absolute right-1 top-1 rounded-full bg-[color:var(--color-bg)]/90 px-2 py-0.5 text-xs"
                 aria-label="Remove photo"
               >
                 ×
