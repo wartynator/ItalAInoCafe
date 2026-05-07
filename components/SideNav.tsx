@@ -8,10 +8,10 @@ import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 
 const tabs = [
-  { href: "/", label: "Diario", desc: "Latest visits" },
-  { href: "/cafes", label: "I locali", desc: "Map & list" },
-  { href: "/new", label: "Nuovo caffè", desc: "Log a visit" },
-  { href: "/me", label: "Il profilo", desc: "Your shelf" },
+  { href: "/", label: "Feed", desc: "Latest visits" },
+  { href: "/cafes", label: "Cafés", desc: "Map & list" },
+  { href: "/new", label: "Log a visit", desc: "Add a new entry" },
+  { href: "/me", label: "Me", desc: "Your profile" },
 ];
 
 export function SideNav() {
@@ -25,7 +25,7 @@ export function SideNav() {
   return (
     <>
       <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-[var(--color-line)] bg-[var(--color-bg)]/95 px-5 py-3 backdrop-blur">
-        <Link href="/" className="font-display-italic text-lg leading-none">
+        <Link href="/" className="font-display text-lg tracking-tight">
           ItalAIno<span className="text-[var(--color-clay)]">·</span>caffè
         </Link>
         <button
@@ -52,23 +52,17 @@ export function SideNav() {
           (open ? "translate-x-0" : "-translate-x-full")
         }
       >
-        <div className="px-6 py-6">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="font-display-italic text-2xl leading-none">
-              ItalAIno<span className="text-[var(--color-clay)]">·</span>caffè
-            </Link>
-            <button
-              aria-label="Close menu"
-              onClick={() => setOpen(false)}
-              className="md:hidden text-sm text-[var(--color-ink-soft)]"
-            >
-              Close
-            </button>
-          </div>
-          <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[var(--color-clay)]">
-            trattoria · del · caffè
-          </p>
-          <div className="mt-3 h-px w-full bg-[var(--color-line)]" />
+        <div className="flex items-center justify-between px-6 py-6">
+          <Link href="/" className="font-display text-xl tracking-tight">
+            ItalAIno<span className="text-[var(--color-clay)]">·</span>caffè
+          </Link>
+          <button
+            aria-label="Close menu"
+            onClick={() => setOpen(false)}
+            className="md:hidden text-sm text-[var(--color-ink-soft)]"
+          >
+            Close
+          </button>
         </div>
 
         <Authenticated>
@@ -87,15 +81,15 @@ export function SideNav() {
                       : "text-[var(--color-ink)] hover:bg-[var(--color-bg)]")
                   }
                 >
-                  <div className="font-display-italic text-base leading-tight">
+                  <div className="text-sm font-medium leading-tight">
                     {t.label}
                   </div>
                   <div
                     className={
-                      "text-[11px] uppercase tracking-[0.12em] " +
+                      "text-xs " +
                       (active
-                        ? "text-[var(--color-clay-soft)]"
-                        : "text-[var(--color-ink-soft)]/80")
+                        ? "text-[var(--color-bg)]/70"
+                        : "text-[var(--color-ink-soft)]")
                     }
                   >
                     {t.desc}
