@@ -30,7 +30,7 @@ export function AddressAutocomplete({
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!value || value.length < 3) {
+    if (!value || value.trim().length < 2) {
       setResults([]);
       return;
     }
@@ -38,7 +38,7 @@ export function AddressAutocomplete({
     debounceRef.current = setTimeout(async () => {
       try {
         const res = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&limit=5&q=${encodeURIComponent(value)}`,
+          `https://nominatim.openstreetmap.org/search?format=json&limit=8&addressdetails=1&q=${encodeURIComponent(value)}`,
           { headers: { Accept: "application/json" } },
         );
         const data: NominatimItem[] = await res.json();
@@ -52,7 +52,7 @@ export function AddressAutocomplete({
       } catch {
         setResults([]);
       }
-    }, 350);
+    }, 300);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
@@ -72,22 +72,32 @@ export function AddressAutocomplete({
         className="w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-3 text-sm placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-ink)]"
       />
       {open && results.length > 0 && (
-        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)]">
-          {results.map((r, i) => (
-            <li key={i}>
-              <button
-                type="button"
-                onMouseDown={(e) => {
-                  e.preventDefault();
-                  onSelect(r);
-                  setOpen(false);
-                }}
-                className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-bg)]"
-              >
-                {r.displayName}
-              </button>
-            </li>
-          ))}
+        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] shadow-sm">
+          {results.map((r, i) => {
+            const parts = r.displayName.split(",").map((p) => p.trim());
+            const head = parts[0];
+            const tail = parts.slice(1).join(", ");
+            return (
+              <li key={i}>
+                <button
+                  type="button"
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    onSelect(r);
+                    setOpen(false);
+                  }}
+                  className="block w-full px-4 py-2.5 text-left hover:bg-[var(--color-bg)]"
+                >
+                  <div className="text-sm leading-tight">{head}</div>
+                  {tail && (
+                    <div className="mt-0.5 text-xs text-[var(--color-ink-soft)] truncate">
+                      {tail}
+                    </div>
+                  )}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

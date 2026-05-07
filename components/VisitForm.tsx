@@ -128,7 +128,7 @@ export function VisitForm({
           </label>
           <label className="block">
             <span className="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">
-              Address
+              Place or address
             </span>
             <div className="mt-1">
               <AddressAutocomplete
@@ -141,7 +141,7 @@ export function VisitForm({
                   setAddress(r.displayName);
                   setCoords({ lat: r.lat, lng: r.lng });
                 }}
-                placeholder="Start typing an address…"
+                placeholder="Search by café name or address…"
               />
             </div>
             {coords && (
@@ -282,7 +282,7 @@ export function VisitForm({
             ? "Saving…"
             : isEdit
               ? "Save changes"
-              : "Save visit"}
+              : "Save"}
         </button>
       </div>
     </form>

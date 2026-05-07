@@ -24,7 +24,7 @@ export default function Home() {
           title="No visits yet."
           body="Start by logging your last café — even three taps is enough."
           ctaHref="/new"
-          ctaLabel="Log a visit"
+          ctaLabel="New coffee"
         />
       )}
 

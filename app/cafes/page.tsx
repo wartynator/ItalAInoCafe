@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
@@ -12,6 +12,13 @@ const CafeMap = dynamic(() => import("@/components/CafeMap"), { ssr: false });
 export default function CafesPage() {
   const cafes = useQuery(api.cafes.list);
   const [tag, setTag] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const mapRef = useRef<HTMLDivElement | null>(null);
+
+  function onSelect(id: string) {
+    setSelectedId(id);
+    mapRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 
   const allTags = useMemo(() => {
     if (!cafes) return [];
@@ -38,16 +45,19 @@ export default function CafesPage() {
       </header>
 
       {cafes && cafes.length > 0 && (
-        <CafeMap
-          cafes={cafes.map((c) => ({
-            _id: c._id,
-            name: c.name,
-            address: c.address,
-            lat: c.lat,
-            lng: c.lng,
-            visitCount: c.visitCount,
-          }))}
-        />
+        <div ref={mapRef} className="scroll-mt-6">
+          <CafeMap
+            selectedId={selectedId}
+            cafes={cafes.map((c) => ({
+              _id: c._id,
+              name: c.name,
+              address: c.address,
+              lat: c.lat,
+              lng: c.lng,
+              visitCount: c.visitCount,
+            }))}
+          />
+        </div>
       )}
 
       {allTags.length > 0 && (
@@ -85,13 +95,18 @@ export default function CafesPage() {
           title="No cafés yet."
           body="Cafés appear here after the first visit is logged."
           ctaHref="/new"
-          ctaLabel="Log a visit"
+          ctaLabel="New coffee"
         />
       )}
 
       <div className="grid gap-4 md:grid-cols-2">
         {filtered.map((c) => (
-          <CafeCard key={c._id} cafe={c} />
+          <CafeCard
+            key={c._id}
+            cafe={c}
+            onSelect={onSelect}
+            active={selectedId === c._id}
+          />
         ))}
       </div>
     </div>

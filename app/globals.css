@@ -39,9 +39,7 @@ body {
   color: var(--color-ink);
 }
 
-input,
-textarea,
-button {
+:where(input, textarea, button) {
   font: inherit;
   color: inherit;
 }

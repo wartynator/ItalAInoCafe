@@ -108,8 +108,14 @@ export const remove = mutation({
     const visit = await ctx.db.get(id);
     if (!visit) return;
     if (visit.userId !== userId) throw new Error("Forbidden");
+    const cafeId = visit.cafeId;
     for (const pid of visit.photoIds) await ctx.storage.delete(pid);
     await ctx.db.delete(id);
+    const remaining = await ctx.db
+      .query("visits")
+      .withIndex("by_cafe", (q) => q.eq("cafeId", cafeId))
+      .first();
+    if (!remaining) await ctx.db.delete(cafeId);
   },
 });
 
