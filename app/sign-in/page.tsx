@@ -98,7 +98,7 @@ export default function SignInPage() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-full bg-[color:var(--color-ink)] px-5 py-3 text-sm text-[color:var(--color-bg)] disabled:opacity-50"
+          className="btn-primary w-full rounded-full px-5 py-3 text-sm"
         >
           {busy ? "…" : mode === "signIn" ? "Sign in" : "Create account"}
         </button>

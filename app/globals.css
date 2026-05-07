@@ -84,6 +84,20 @@ button:focus-visible {
   border-radius: 2px;
 }
 
+/* Primary call-to-action — espresso pill with cream text. Defined as a
+   plain CSS class so no Tailwind arbitrary-value or inherit-cascade
+   tricks can swallow the text color. */
+.btn-primary {
+  background-color: var(--color-ink) !important;
+  color: var(--color-bg) !important;
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: #1a0d06 !important;
+}
+
 /* paper-feel cards */
 .hairline {
   border: 1px solid var(--color-line);

@@ -140,6 +140,10 @@ export function VisitForm({
                 onSelect={(r: GeocodeResult) => {
                   setAddress(r.displayName);
                   setCoords({ lat: r.lat, lng: r.lng });
+                  if (!name.trim()) {
+                    const head = r.displayName.split(",")[0]?.trim();
+                    if (head) setName(head);
+                  }
                 }}
                 placeholder="Search by café name or address…"
               />
@@ -276,7 +280,7 @@ export function VisitForm({
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center rounded-full bg-[color:var(--color-ink)] px-5 py-2.5 text-sm text-[color:var(--color-bg)] disabled:opacity-50"
+          className="btn-primary inline-flex items-center rounded-full px-5 py-2.5 text-sm"
         >
           {submitting
             ? "Saving…"

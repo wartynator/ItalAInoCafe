@@ -67,7 +67,7 @@ export default function CafesPage() {
             className={
               "rounded-full px-3 py-1 text-xs " +
               (tag === null
-                ? "bg-[color:var(--color-ink)] text-[color:var(--color-bg)]"
+                ? "btn-primary"
                 : "border border-[var(--color-line)] text-[var(--color-ink-soft)]")
             }
           >
