@@ -16,7 +16,19 @@ export const RATING_LABELS: Record<"environment" | "coffee" | "location", string
   location: "Location",
 };
 
-// "Friedrichstraße 12, Mitte, Berlin, 10117, Berlin, Deutschland" -> "Friedrichstraße 12 · Berlin"
+// "Friedrichstraße 12, Mitte, Berlin, 10117, Deutschland" -> "Berlin"
+export function cityFromAddress(s: string): string {
+  if (!s) return "";
+  const parts = s.split(",").map((p) => p.trim()).filter(Boolean);
+  if (parts.length <= 1) return parts[0] ?? "";
+  // drop the street (parts[0]); drop pure-numeric parts (postcodes); drop the last (usually country)
+  const middle = parts
+    .slice(1, parts.length > 2 ? -1 : undefined)
+    .filter((p) => !/^\d+$/.test(p));
+  return middle[middle.length - 1] || parts[parts.length - 1] || "";
+}
+
+// "Friedrichstraße 12, Mitte, Berlin, 10117, Deutschland" -> "Friedrichstraße 12 · Berlin"
 export function shortAddress(s: string): string {
   if (!s) return "";
   const parts = s.split(",").map((p) => p.trim()).filter(Boolean);

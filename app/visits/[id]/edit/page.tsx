@@ -18,14 +18,14 @@ export default function EditVisitPage({
   if (visit === undefined) {
     return (
       <div className="mx-auto max-w-[640px]">
-        <div className="h-72 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)]" />
+        <div className="h-72 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)]" />
       </div>
     );
   }
 
   if (visit === null) {
     return (
-      <div className="mx-auto max-w-[640px] rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-8 text-center">
+      <div className="mx-auto max-w-[640px] rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-8 text-center">
         <h1 className="font-display text-2xl tracking-tight">
           Visit not found
         </h1>
@@ -34,7 +34,7 @@ export default function EditVisitPage({
         </p>
         <Link
           href="/me"
-          className="mt-5 inline-flex items-center rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm text-[var(--color-bg)]"
+          className="mt-5 inline-flex items-center rounded-full bg-[color:var(--color-ink)] px-5 py-2.5 text-sm text-[color:var(--color-bg)]"
         >
           Back to your visits
         </Link>

@@ -123,7 +123,7 @@ export function VisitForm({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Bonanza Coffee Heroes"
-              className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+              className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[color:var(--color-surface)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
             />
           </label>
           <label className="block">
@@ -154,7 +154,7 @@ export function VisitForm({
       )}
 
       {isEdit && initial.cafeName && (
-        <section className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-5">
+        <section className="rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-5">
           <p className="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">
             Editing visit at
           </p>
@@ -165,7 +165,7 @@ export function VisitForm({
         </section>
       )}
 
-      <section className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
+      <section className="rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-6">
         <h2 className="font-display text-xl tracking-tight">How was it?</h2>
         <div className="mt-4 space-y-4">
           <RatingPicker
@@ -195,7 +195,7 @@ export function VisitForm({
           onChange={(e) => setNotes(e.target.value)}
           rows={4}
           placeholder="Single-origin Ethiopia, slow pour, dog-friendly patio…"
-          className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+          className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[color:var(--color-surface)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
         />
       </label>
 
@@ -214,7 +214,7 @@ export function VisitForm({
               }
             }}
             placeholder="wifi, oat milk, pastry…"
-            className="flex-1 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-2.5 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+            className="flex-1 rounded-xl border border-[var(--color-line)] bg-[color:var(--color-surface)] px-4 py-2.5 text-sm focus:outline-none focus:border-[var(--color-ink)]"
           />
           <button
             type="button"
@@ -255,7 +255,7 @@ export function VisitForm({
           type="date"
           value={visitedAt}
           onChange={(e) => setVisitedAt(e.target.value)}
-          className="mt-1 rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+          className="mt-1 rounded-xl border border-[var(--color-line)] bg-[color:var(--color-surface)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
         />
       </label>
 
@@ -276,7 +276,7 @@ export function VisitForm({
         <button
           type="submit"
           disabled={submitting}
-          className="inline-flex items-center rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm text-[var(--color-bg)] disabled:opacity-50"
+          className="inline-flex items-center rounded-full bg-[color:var(--color-ink)] px-5 py-2.5 text-sm text-[color:var(--color-bg)] disabled:opacity-50"
         >
           {submitting
             ? "Saving…"

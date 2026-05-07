@@ -47,7 +47,7 @@ export default function SignInPage() {
 
       <form
         onSubmit={onSubmit}
-        className="space-y-3 rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6"
+        className="space-y-3 rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-6"
       >
         {mode === "signUp" && (
           <label className="block">
@@ -57,7 +57,7 @@ export default function SignInPage() {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+              className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[color:var(--color-bg)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
             />
           </label>
         )}
@@ -71,7 +71,7 @@ export default function SignInPage() {
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+            className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[color:var(--color-bg)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
           />
         </label>
         <label className="block">
@@ -85,7 +85,7 @@ export default function SignInPage() {
             autoComplete={mode === "signIn" ? "current-password" : "new-password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-bg)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
+            className="mt-1 w-full rounded-xl border border-[var(--color-line)] bg-[color:var(--color-bg)] px-4 py-3 text-sm focus:outline-none focus:border-[var(--color-ink)]"
           />
         </label>
 
@@ -98,7 +98,7 @@ export default function SignInPage() {
         <button
           type="submit"
           disabled={busy}
-          className="w-full rounded-full bg-[var(--color-ink)] px-5 py-3 text-sm text-[var(--color-bg)] disabled:opacity-50"
+          className="w-full rounded-full bg-[color:var(--color-ink)] px-5 py-3 text-sm text-[color:var(--color-bg)] disabled:opacity-50"
         >
           {busy ? "…" : mode === "signIn" ? "Sign in" : "Create account"}
         </button>

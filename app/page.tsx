@@ -43,7 +43,7 @@ function FeedSkeleton() {
       {[0, 1, 2].map((i) => (
         <div
           key={i}
-          className="h-48 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)]"
+          className="h-48 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)]"
         />
       ))}
     </div>

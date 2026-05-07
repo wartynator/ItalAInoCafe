@@ -17,7 +17,7 @@ export default function CafePage({ params }: { params: Promise<{ id: string }> }
 
   if (cafe === undefined) {
     return (
-      <div className="h-64 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)]" />
+      <div className="h-64 animate-pulse rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)]" />
     );
   }
   if (cafe === null) {
@@ -37,7 +37,7 @@ export default function CafePage({ params }: { params: Promise<{ id: string }> }
         <p className="mt-1 text-[var(--color-ink-soft)]">{cafe.address}</p>
       </header>
 
-      <section className="rounded-2xl border border-[var(--color-line)] bg-[var(--color-surface)] p-6">
+      <section className="rounded-2xl border border-[var(--color-line)] bg-[color:var(--color-surface)] p-6">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">Overall</p>

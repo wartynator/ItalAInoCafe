@@ -69,10 +69,10 @@ export function AddressAutocomplete({
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] px-4 py-3 text-sm placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-ink)]"
+        className="w-full rounded-xl border border-[var(--color-line)] bg-[color:var(--color-surface)] px-4 py-3 text-sm placeholder:text-[var(--color-ink-soft)] focus:outline-none focus:border-[var(--color-ink)]"
       />
       {open && results.length > 0 && (
-        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-[var(--color-line)] bg-[var(--color-surface)] shadow-sm">
+        <ul className="absolute z-10 mt-1 w-full overflow-hidden rounded-xl border border-[var(--color-line)] bg-[color:var(--color-surface)] shadow-sm">
           {results.map((r, i) => {
             const parts = r.displayName.split(",").map((p) => p.trim());
             const head = parts[0];
@@ -86,7 +86,7 @@ export function AddressAutocomplete({
                     onSelect(r);
                     setOpen(false);
                   }}
-                  className="block w-full px-4 py-2.5 text-left hover:bg-[var(--color-bg)]"
+                  className="block w-full px-4 py-2.5 text-left hover:bg-[color:var(--color-bg)]"
                 >
                   <div className="text-sm leading-tight">{head}</div>
                   {tail && (

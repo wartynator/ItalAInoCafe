@@ -24,7 +24,7 @@ export function SideNav() {
 
   return (
     <>
-      <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-[var(--color-line)] bg-[var(--color-bg)]/95 px-5 py-3 backdrop-blur">
+      <header className="md:hidden sticky top-0 z-30 flex items-center justify-between border-b border-[var(--color-line)] bg-[color:var(--color-bg)]/95 px-5 py-3 backdrop-blur">
         <Link href="/" className="font-display text-lg tracking-tight">
           ItalAIno<span className="text-[var(--color-clay)]">·</span>caffè
         </Link>
@@ -47,7 +47,7 @@ export function SideNav() {
 
       <aside
         className={
-          "fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-[var(--color-line)] bg-[var(--color-surface)] transition-transform " +
+          "fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-[var(--color-line)] bg-[color:var(--color-surface)] transition-transform " +
           "md:translate-x-0 md:w-64 " +
           (open ? "translate-x-0" : "-translate-x-full")
         }
@@ -77,8 +77,8 @@ export function SideNav() {
                   className={
                     "block rounded-xl px-3 py-2.5 text-sm transition-colors " +
                     (active
-                      ? "bg-[var(--color-ink)] text-[var(--color-bg)]"
-                      : "text-[var(--color-ink)] hover:bg-[var(--color-bg)]")
+                      ? "bg-[color:var(--color-ink)] text-[color:var(--color-bg)]"
+                      : "text-[var(--color-ink)] hover:bg-[color:var(--color-bg)]")
                   }
                 >
                   <div className="text-sm font-medium leading-tight">
@@ -88,7 +88,7 @@ export function SideNav() {
                     className={
                       "text-xs " +
                       (active
-                        ? "text-[var(--color-bg)]/70"
+                        ? "text-[color:var(--color-bg)]/70"
                         : "text-[var(--color-ink-soft)]")
                     }
                   >
@@ -110,7 +110,7 @@ export function SideNav() {
           <div className="px-6 py-6">
             <Link
               href="/sign-in"
-              className="block rounded-full bg-[var(--color-ink)] px-4 py-2.5 text-center text-sm text-[var(--color-bg)]"
+              className="block rounded-full bg-[color:var(--color-ink)] px-4 py-2.5 text-center text-sm text-[color:var(--color-bg)]"
             >
               Sign in
             </Link>
