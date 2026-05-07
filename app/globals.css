@@ -2,15 +2,19 @@
 @import "leaflet/dist/leaflet.css";
 
 @theme {
-  --color-bg: #faf7f2;
-  --color-surface: #ffffff;
-  --color-ink: #1f1b16;
-  --color-ink-soft: #5c544a;
-  --color-sage: #a7b5a0;
-  --color-sage-soft: #d6dcd1;
-  --color-clay: #c99b7a;
-  --color-line: #e7e1d8;
-  --color-star: #3f3a33;
+  /* trattoria palette — aged paper, espresso, terracotta, basilico */
+  --color-bg: #f4ead0;        /* crema / aged paper */
+  --color-surface: #fbf3df;   /* cappuccino foam */
+  --color-ink: #2a160c;       /* espresso */
+  --color-ink-soft: #6b4a36;  /* cocoa */
+  --color-sage: #5b7a4f;      /* basilico */
+  --color-sage-soft: #d4dbc6; /* basilico chiaro */
+  --color-clay: #c0623f;      /* terracotta */
+  --color-clay-soft: #f0d2bf; /* terracotta chiara */
+  --color-vino: #8b2a2a;      /* vino rosso */
+  --color-gold: #b8893a;      /* mostarda */
+  --color-line: #d9c89a;      /* tan rule */
+  --color-star: #2a160c;      /* filled rating */
 
   --font-display: var(--font-fraunces), Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -21,13 +25,17 @@
 html,
 body {
   background-color: var(--color-bg);
+  background-image:
+    radial-gradient(at 18% 12%, rgba(192, 98, 63, 0.08) 0, transparent 55%),
+    radial-gradient(at 82% 88%, rgba(91, 122, 79, 0.08) 0, transparent 60%);
+  background-attachment: fixed;
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--color-sage-soft);
+  background: var(--color-clay-soft);
   color: var(--color-ink);
 }
 
@@ -41,7 +49,7 @@ button {
 input:focus-visible,
 textarea:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-ink);
+  outline: 2px solid var(--color-clay);
   outline-offset: 2px;
 }
 
@@ -51,11 +59,39 @@ button:focus-visible {
   letter-spacing: -0.01em;
 }
 
+.font-display-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-optical-sizing: auto;
+  letter-spacing: -0.005em;
+}
+
+/* a small two-tone rule, like the band on an Italian menu */
+.flourish {
+  position: relative;
+  padding-bottom: 0.9rem;
+}
+.flourish::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-clay) 0 50%,
+    var(--color-gold) 50% 100%
+  );
+  border-radius: 2px;
+}
+
+/* paper-feel cards */
 .hairline {
   border: 1px solid var(--color-line);
 }
 
-/* Leaflet tweaks for the Scandi theme */
+/* Leaflet tweaks */
 .leaflet-container {
   background: var(--color-bg);
   font-family: var(--font-sans);
@@ -72,6 +108,7 @@ button:focus-visible {
   width: 14px;
   height: 14px;
   border-radius: 9999px;
-  background: var(--color-ink);
+  background: var(--color-clay);
   border: 2px solid var(--color-bg);
+  box-shadow: 0 0 0 1px var(--color-clay);
 }

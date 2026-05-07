@@ -29,8 +29,13 @@ export default function CafesPage() {
   return (
     <div className="space-y-8">
       <header className="flex items-end justify-between gap-4 pt-2">
-        <div>
-          <h1 className="font-display text-4xl tracking-tight md:text-5xl">Cafés</h1>
+        <div className="flourish">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-clay)]">
+            I locali
+          </p>
+          <h1 className="font-display-italic text-5xl leading-[1.05] md:text-6xl">
+            La mappa
+          </h1>
           <p className="mt-2 text-[var(--color-ink-soft)]">
             Every place you and your friends have logged.
           </p>

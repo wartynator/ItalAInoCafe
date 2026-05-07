@@ -11,8 +11,13 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <header className="pt-2">
-        <h1 className="font-display text-4xl tracking-tight md:text-5xl">Feed</h1>
+      <header className="pt-2 flourish">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-[var(--color-clay)]">
+          Il diario
+        </p>
+        <h1 className="font-display-italic text-5xl leading-[1.05] md:text-6xl">
+          Buongiorno.
+        </h1>
         <p className="mt-2 text-[var(--color-ink-soft)]">
           Recent café visits from you and your friends.
         </p>
