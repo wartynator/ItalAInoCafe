@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "convex/react";
-import Link from "next/link";
 import { api } from "@/convex/_generated/api";
 import { VisitCard } from "@/components/VisitCard";
 import { EmptyState } from "@/components/EmptyState";
@@ -11,22 +10,12 @@ export default function Home() {
 
   return (
     <div className="space-y-8">
-      <section className="flex items-end justify-between gap-4 pt-2">
-        <div>
-          <h1 className="font-display text-4xl tracking-tight md:text-5xl">
-            A quiet log of good coffee.
-          </h1>
-          <p className="mt-2 max-w-prose text-[var(--color-ink-soft)]">
-            Recent visits from you and your friends — environment, coffee, location.
-          </p>
-        </div>
-        <Link
-          href="/new"
-          className="hidden md:inline-flex shrink-0 items-center rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm text-[var(--color-bg)] hover:opacity-90"
-        >
-          Log a visit
-        </Link>
-      </section>
+      <header className="pt-2">
+        <h1 className="font-display text-4xl tracking-tight md:text-5xl">Feed</h1>
+        <p className="mt-2 text-[var(--color-ink-soft)]">
+          Recent café visits from you and your friends.
+        </p>
+      </header>
 
       {feed === undefined && <FeedSkeleton />}
       {feed && feed.length === 0 && (
@@ -59,4 +48,3 @@ function FeedSkeleton() {
     </div>
   );
 }
-
