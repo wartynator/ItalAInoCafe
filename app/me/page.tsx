@@ -4,7 +4,7 @@ import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { VisitCard } from "@/components/VisitCard";
 import { EmptyState } from "@/components/EmptyState";
-import { formatRating } from "@/lib/format";
+import { formatRating, displayName } from "@/lib/format";
 
 export default function MePage() {
   const me = useQuery(api.users.me);
@@ -20,10 +20,8 @@ export default function MePage() {
     return { count: visits.length, avg, cafes: cafes.size };
   })();
 
-  const localFromEmail = (me?.email ?? "").split("@")[0] ?? "";
-  const display = me?.name?.trim() || localFromEmail || "You";
+  const display = displayName(me?.name, me?.email);
   const initial = (display || "?").trim().charAt(0).toUpperCase();
-  const showEmailSubtitle = !!me?.email && me.email !== display;
 
   return (
     <div className="space-y-10">
@@ -36,7 +34,7 @@ export default function MePage() {
             <h1 className="font-display text-3xl tracking-tight md:text-4xl">
               {display}
             </h1>
-            {showEmailSubtitle && (
+            {me?.email && (
               <p className="text-sm text-[var(--color-ink-soft)]">{me.email}</p>
             )}
           </div>

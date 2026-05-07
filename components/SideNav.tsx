@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { displayName } from "@/lib/format";
 
 const tabs = [
   { href: "/", label: "Feed", desc: "Latest visits" },
@@ -124,10 +125,8 @@ export function SideNav() {
 function UserCard() {
   const { signOut } = useAuthActions();
   const me = useQuery(api.users.me);
-  const localFromEmail = (me?.email ?? "").split("@")[0] ?? "";
-  const display = me?.name?.trim() || localFromEmail || "You";
+  const display = displayName(me?.name, me?.email);
   const initial = (display || "?").trim().charAt(0).toUpperCase();
-  const showEmail = !!me?.email && me.email !== display;
   return (
     <div className="border-t border-[var(--color-line)] px-4 py-4">
       <div className="flex items-center gap-3">
@@ -136,7 +135,7 @@ function UserCard() {
         </div>
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{display}</p>
-          {showEmail && (
+          {me?.email && (
             <p className="truncate text-xs text-[var(--color-ink-soft)]">{me.email}</p>
           )}
         </div>
