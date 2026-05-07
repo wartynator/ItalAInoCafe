@@ -77,7 +77,7 @@ export function SideNav() {
                   className={
                     "block rounded-xl px-3 py-2.5 text-sm transition-colors " +
                     (active
-                      ? "bg-[color:var(--color-ink)] text-[color:var(--color-bg)]"
+                      ? "btn-primary"
                       : "text-[var(--color-ink)] hover:bg-[color:var(--color-bg)]")
                   }
                 >
@@ -88,7 +88,7 @@ export function SideNav() {
                     className={
                       "text-xs " +
                       (active
-                        ? "text-[color:var(--color-bg)]/70"
+                        ? "text-[#f4ead0]/70"
                         : "text-[var(--color-ink-soft)]")
                     }
                   >
@@ -110,7 +110,7 @@ export function SideNav() {
           <div className="px-6 py-6">
             <Link
               href="/sign-in"
-              className="block rounded-full bg-[color:var(--color-ink)] px-4 py-2.5 text-center text-sm text-[color:var(--color-bg)]"
+              className="btn-primary block rounded-full px-4 py-2.5 text-center text-sm"
             >
               Sign in
             </Link>

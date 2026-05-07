@@ -34,7 +34,7 @@ export default function EditVisitPage({
         </p>
         <Link
           href="/me"
-          className="mt-5 inline-flex items-center rounded-full bg-[color:var(--color-ink)] px-5 py-2.5 text-sm text-[color:var(--color-bg)]"
+          className="btn-primary mt-5 inline-flex items-center rounded-full px-5 py-2.5 text-sm"
         >
           Back to your visits
         </Link>

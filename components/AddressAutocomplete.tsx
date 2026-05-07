@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { cityFromAddress } from "@/lib/format";
 
 export type GeocodeResult = {
   displayName: string;
@@ -76,7 +77,7 @@ export function AddressAutocomplete({
           {results.map((r, i) => {
             const parts = r.displayName.split(",").map((p) => p.trim());
             const head = parts[0];
-            const tail = parts.slice(1).join(", ");
+            const city = cityFromAddress(r.displayName);
             return (
               <li key={i}>
                 <button
@@ -89,9 +90,9 @@ export function AddressAutocomplete({
                   className="block w-full px-4 py-2.5 text-left hover:bg-[color:var(--color-bg)]"
                 >
                   <div className="text-sm leading-tight">{head}</div>
-                  {tail && (
+                  {city && city !== head && (
                     <div className="mt-0.5 text-xs text-[var(--color-ink-soft)] truncate">
-                      {tail}
+                      {city}
                     </div>
                   )}
                 </button>
