@@ -8,3 +8,4 @@ dist
 .DS_Store
 *.log
 .convex
+tsconfig.tsbuildinfo
