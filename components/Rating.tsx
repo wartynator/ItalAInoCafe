@@ -84,50 +84,87 @@ export function RatingPicker({
   label,
   value,
   onChange,
+  size = 20,
+  hint,
 }: {
-  label: string;
+  label?: string;
   value: number;
   onChange: (n: number) => void;
+  size?: number;
+  hint?: string;
 }) {
   const id = useId();
   return (
-    <div className="flex items-center justify-between gap-4">
-      <label htmlFor={id} className="text-sm text-[var(--color-ink-soft)]">
-        {label}
-      </label>
-      <div
-        id={id}
-        role="radiogroup"
-        aria-label={label}
-        className="flex items-center gap-1.5"
-        onKeyDown={(e) => {
-          if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
-            e.preventDefault();
-            onChange(Math.max(1, value - 1));
-          } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
-            e.preventDefault();
-            onChange(Math.min(5, value + 1));
-          }
-        }}
-        tabIndex={0}
-      >
-        {[1, 2, 3, 4, 5].map((i) => {
-          const active = i <= value;
-          return (
-            <button
-              key={i}
-              type="button"
-              role="radio"
-              aria-checked={value === i}
-              aria-label={`${i} out of 5`}
-              onClick={() => onChange(i)}
-              className="rounded-full p-0.5 transition-transform hover:scale-110"
-            >
-              <Bean size={20} filled={active} />
-            </button>
-          );
-        })}
+    <div className={label ? "flex items-center justify-between gap-4" : "flex items-center justify-center"}>
+      {label && (
+        <label htmlFor={id} className="text-sm text-[var(--color-ink-soft)]">
+          {label}
+        </label>
+      )}
+      <div className="flex flex-col items-end gap-1">
+        <div
+          id={id}
+          role="radiogroup"
+          aria-label={label ?? "Rating"}
+          className="flex items-center gap-1.5"
+          onKeyDown={(e) => {
+            if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+              e.preventDefault();
+              onChange(Math.max(1, value - 1));
+            } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+              e.preventDefault();
+              onChange(Math.min(5, value + 1));
+            }
+          }}
+          tabIndex={0}
+        >
+          {[1, 2, 3, 4, 5].map((i) => {
+            const active = i <= value;
+            return (
+              <button
+                key={i}
+                type="button"
+                role="radio"
+                aria-checked={value === i}
+                aria-label={`${i} out of 5`}
+                onClick={() => onChange(i)}
+                className="grid place-items-center rounded-full transition-transform active:scale-95 hover:scale-110"
+                style={{ width: size + 16, height: size + 16 }}
+              >
+                <Bean size={size} filled={active} />
+              </button>
+            );
+          })}
+        </div>
+        {hint && (
+          <span className="text-xs text-[var(--color-ink-soft)]">{hint}</span>
+        )}
       </div>
+    </div>
+  );
+}
+
+const HINTS: Record<number, string> = {
+  1: "rough",
+  2: "meh",
+  3: "fine",
+  4: "good",
+  5: "loved it",
+};
+
+export function OverallRating({
+  value,
+  onChange,
+}: {
+  value: number;
+  onChange: (n: number) => void;
+}) {
+  return (
+    <div className="grid place-items-center gap-2">
+      <RatingPicker value={value} onChange={onChange} size={32} />
+      <span className="text-sm text-[var(--color-ink-soft)]">
+        {value > 0 ? HINTS[value] : "tap to rate"}
+      </span>
     </div>
   );
 }

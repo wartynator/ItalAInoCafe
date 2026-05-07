@@ -11,7 +11,9 @@
 import type * as auth from "../auth.js";
 import type * as cafes from "../cafes.js";
 import type * as files from "../files.js";
+import type * as follows from "../follows.js";
 import type * as http from "../http.js";
+import type * as profiles from "../profiles.js";
 import type * as users from "../users.js";
 import type * as visits from "../visits.js";
 
@@ -25,7 +27,9 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   cafes: typeof cafes;
   files: typeof files;
+  follows: typeof follows;
   http: typeof http;
+  profiles: typeof profiles;
   users: typeof users;
   visits: typeof visits;
 }>;

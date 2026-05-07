@@ -16,6 +16,20 @@ export const RATING_LABELS: Record<"environment" | "coffee" | "location", string
   location: "Location",
 };
 
+// (null, "matuss.moje@gmail.com") -> "Matuss Moje"
+// ("Mathilde", "...") -> "Mathilde"
+export function displayName(name: string | null | undefined, email: string | null | undefined): string {
+  if (name && name.trim()) return name.trim();
+  const local = (email ?? "").split("@")[0] ?? "";
+  if (!local) return "You";
+  return local
+    .replace(/[._\-+]+/g, " ")
+    .split(" ")
+    .filter(Boolean)
+    .map((w) => w[0].toUpperCase() + w.slice(1))
+    .join(" ");
+}
+
 // "Nico Caffé, 1181/3, ..., Košice, ..." -> "Nico Caffé · Košice"
 export function placeAndCity(s: string): string {
   if (!s) return "";

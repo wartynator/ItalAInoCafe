@@ -4,19 +4,20 @@ import { VisitForm } from "@/components/VisitForm";
 
 export default function NewVisitPage() {
   return (
-    <div className="mx-auto max-w-[640px] space-y-8">
+    <div className="mx-auto max-w-[640px] space-y-6">
       <header>
-        <h1 className="font-display text-4xl tracking-tight md:text-5xl">
+        <h1 className="font-display text-3xl tracking-tight md:text-4xl">
           New coffee
         </h1>
-        <p className="mt-2 text-[var(--color-ink-soft)]">
-          Three ratings, a few words, optionally a photo or two.
+        <p className="mt-1 text-sm text-[var(--color-ink-soft)]">
+          Tell me where you were and how it was.
         </p>
       </header>
       <VisitForm
         mode="create"
         initial={{
-          ratings: { environment: 4, coffee: 4, location: 4 },
+          overall: 0,
+          ratings: null,
           notes: "",
           tags: [],
           photos: [],

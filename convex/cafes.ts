@@ -1,29 +1,37 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { mutation, query, QueryCtx } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
-import { Doc, Id } from "./_generated/dataModel";
+import type { Doc, Id } from "./_generated/dataModel";
 
 function normalize(s: string) {
   return s.trim().toLowerCase().replace(/\s+/g, " ");
 }
 
-function avg(nums: number[]) {
+function mean(nums: number[]) {
   if (nums.length === 0) return 0;
   return nums.reduce((a, b) => a + b, 0) / nums.length;
 }
 
-async function summarizeCafe(
-  ctx: { db: any },
-  cafe: Doc<"cafes">,
-) {
+function visitOverall(v: Doc<"visits">): number {
+  if (typeof v.overall === "number") return v.overall;
+  if (v.ratings) {
+    const r = v.ratings;
+    return (r.environment + r.coffee + r.location) / 3;
+  }
+  return 0;
+}
+
+async function summarizeCafe(ctx: QueryCtx, cafe: Doc<"cafes">) {
   const visits = await ctx.db
     .query("visits")
-    .withIndex("by_cafe", (q: any) => q.eq("cafeId", cafe._id))
+    .withIndex("by_cafe", (q) => q.eq("cafeId", cafe._id))
     .collect();
-  const env = avg(visits.map((v: Doc<"visits">) => v.ratings.environment));
-  const coffee = avg(visits.map((v: Doc<"visits">) => v.ratings.coffee));
-  const location = avg(visits.map((v: Doc<"visits">) => v.ratings.location));
-  const overall = (env + coffee + location) / 3;
+  const overalls = visits.map(visitOverall).filter((n) => n > 0);
+  const overall = mean(overalls);
+  const facets = visits.map((v) => v.ratings).filter((r): r is NonNullable<typeof r> => !!r);
+  const env = mean(facets.map((r) => r.environment));
+  const coffee = mean(facets.map((r) => r.coffee));
+  const location = mean(facets.map((r) => r.location));
   const tagCounts = new Map<string, number>();
   for (const v of visits) for (const t of v.tags) tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
   const topTags = [...tagCounts.entries()]
@@ -37,7 +45,13 @@ async function summarizeCafe(
     lat: cafe.lat,
     lng: cafe.lng,
     visitCount: visits.length,
-    averages: { environment: env, coffee, location, overall },
+    averages: {
+      overall,
+      environment: env,
+      coffee,
+      location,
+      hasFacets: facets.length > 0,
+    },
     topTags,
   };
 }
@@ -62,27 +76,50 @@ export const get = query({
       .order("desc")
       .collect();
 
+    const allTagCounts = new Map<string, number>();
+    const allPhotos: string[] = [];
+
     const enriched = await Promise.all(
       visits.map(async (v) => {
         const user = await ctx.db.get(v.userId);
-        const photoUrls = await Promise.all(
-          v.photoIds.map((pid) => ctx.storage.getUrl(pid)),
-        );
+        const profile = await ctx.db
+          .query("profiles")
+          .withIndex("by_user", (q) => q.eq("userId", v.userId))
+          .unique();
+        const avatarUrl = profile?.avatarStorageId
+          ? await ctx.storage.getUrl(profile.avatarStorageId)
+          : null;
+        const photoUrls = (
+          await Promise.all(v.photoIds.map((pid) => ctx.storage.getUrl(pid)))
+        ).filter((u): u is string => !!u);
+        for (const url of photoUrls) allPhotos.push(url);
+        for (const t of v.tags) allTagCounts.set(t, (allTagCounts.get(t) ?? 0) + 1);
         return {
           _id: v._id,
           userId: v.userId,
-          userName: user?.name ?? user?.email ?? "Anonymous",
-          ratings: v.ratings,
+          userName: profile?.name ?? user?.name ?? user?.email ?? "Anonymous",
+          userAvatarUrl: avatarUrl,
+          overall: visitOverall(v),
+          ratings: v.ratings ?? null,
           notes: v.notes,
           tags: v.tags,
-          photoUrls: photoUrls.filter((u): u is string => !!u),
+          photoUrls,
           visitedAt: v.visitedAt,
           createdAt: v._creationTime,
         };
       }),
     );
 
-    return { ...summary, visits: enriched };
+    const tagCloud = [...allTagCounts.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .map(([tag, count]) => ({ tag, count }));
+
+    return {
+      ...summary,
+      visits: enriched,
+      photoWall: allPhotos.slice(0, 24),
+      tagCloud,
+    };
   },
 });
 
