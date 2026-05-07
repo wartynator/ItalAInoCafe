@@ -7,11 +7,13 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { Authenticated, Unauthenticated, useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { displayName } from "@/lib/format";
+import { Avatar } from "./Avatar";
 
 const tabs = [
-  { href: "/", label: "Feed", desc: "Latest visits" },
+  { href: "/", label: "Feed", desc: "You & friends" },
   { href: "/cafes", label: "Cafés", desc: "Map & list" },
-  { href: "/new", label: "New coffee", desc: "Tag a place you've been" },
+  { href: "/people", label: "People", desc: "Find friends" },
+  { href: "/new", label: "New coffee", desc: "Log a visit" },
   { href: "/me", label: "Me", desc: "Your profile" },
 ];
 
@@ -126,13 +128,10 @@ function UserCard() {
   const { signOut } = useAuthActions();
   const me = useQuery(api.users.me);
   const display = displayName(me?.name, me?.email);
-  const initial = (display || "?").trim().charAt(0).toUpperCase();
   return (
     <div className="border-t border-[var(--color-line)] px-4 py-4">
       <div className="flex items-center gap-3">
-        <div className="grid h-9 w-9 place-items-center rounded-full bg-[var(--color-sage-soft)] text-sm font-medium">
-          {initial}
-        </div>
+        <Avatar url={me?.avatarUrl} name={display} email={me?.email} size={36} />
         <div className="min-w-0 flex-1">
           <p className="truncate text-sm font-medium">{display}</p>
           {me?.email && (

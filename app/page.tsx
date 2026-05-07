@@ -1,12 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { VisitCard } from "@/components/VisitCard";
 import { EmptyState } from "@/components/EmptyState";
 
 export default function Home() {
-  const feed = useQuery(api.visits.recentFeed, { limit: 30 });
+  const feed = useQuery(api.visits.friendsFeed, { limit: 30 });
   const me = useQuery(api.users.me);
 
   return (
@@ -21,11 +22,19 @@ export default function Home() {
       {feed === undefined && <FeedSkeleton />}
       {feed && feed.length === 0 && (
         <EmptyState
-          title="No visits yet."
-          body="Start by logging your last café — even three taps is enough."
+          title="Nothing brewing yet."
+          body="Log your first coffee, or find friends to follow on the People page."
           ctaHref="/new"
           ctaLabel="New coffee"
         />
+      )}
+      {feed && feed.length > 0 && (
+        <p className="text-xs text-[var(--color-ink-soft)]">
+          Showing visits from you and people you follow.{" "}
+          <Link href="/people" className="underline underline-offset-2 hover:text-[var(--color-ink)]">
+            Find more friends →
+          </Link>
+        </p>
       )}
 
       <div className="grid gap-5">

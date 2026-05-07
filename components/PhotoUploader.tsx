@@ -55,24 +55,53 @@ export function PhotoUploader({
       </label>
       {photos.length > 0 && (
         <div className="mt-3 grid grid-cols-3 gap-2">
-          {photos.map((p, i) => (
-            <div key={p.storageId} className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={p.previewUrl}
-                alt=""
-                className="aspect-[4/5] w-full rounded-xl object-cover"
-              />
-              <button
-                type="button"
-                onClick={() => onChange(photos.filter((_, j) => j !== i))}
-                className="absolute right-1 top-1 rounded-full bg-[color:var(--color-bg)]/90 px-2 py-0.5 text-xs"
-                aria-label="Remove photo"
-              >
-                ×
-              </button>
-            </div>
-          ))}
+          {photos.map((p, i) => {
+            function move(delta: number) {
+              const j = i + delta;
+              if (j < 0 || j >= photos.length) return;
+              const next = [...photos];
+              [next[i], next[j]] = [next[j], next[i]];
+              onChange(next);
+            }
+            return (
+              <div key={p.storageId} className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={p.previewUrl}
+                  alt=""
+                  className="aspect-[4/5] w-full rounded-xl object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => onChange(photos.filter((_, j) => j !== i))}
+                  className="absolute right-1 top-1 rounded-full bg-[color:var(--color-bg)]/95 px-2 py-0.5 text-xs"
+                  aria-label="Remove photo"
+                >
+                  ×
+                </button>
+                <div className="absolute inset-x-1 bottom-1 flex justify-between">
+                  <button
+                    type="button"
+                    onClick={() => move(-1)}
+                    disabled={i === 0}
+                    aria-label="Move left"
+                    className="rounded-full bg-[color:var(--color-bg)]/90 px-2 py-0.5 text-xs disabled:opacity-30"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => move(1)}
+                    disabled={i === photos.length - 1}
+                    aria-label="Move right"
+                    className="rounded-full bg-[color:var(--color-bg)]/90 px-2 py-0.5 text-xs disabled:opacity-30"
+                  >
+                    ›
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
     </div>

@@ -59,7 +59,8 @@ export default function EditVisitPage({
           cafeId: visit.cafeId,
           cafeName: visit.cafeName,
           cafeAddress: visit.cafeAddress,
-          ratings: visit.ratings,
+          overall: visit.overall || 0,
+          ratings: visit.ratings ?? null,
           notes: visit.notes,
           tags: visit.tags,
           photos: visit.photos.map((p) => ({
