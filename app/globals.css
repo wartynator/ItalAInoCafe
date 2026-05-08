@@ -84,6 +84,19 @@ button:focus-visible {
   border-radius: 2px;
 }
 
+/* iOS standalone PWA safe-area helpers */
+.safe-pb {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .safe-pb {
+    padding-bottom: 0;
+  }
+}
+.safe-bottom-fab {
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+}
+
 /* Primary call-to-action — espresso pill with cream text. Defined as a
    plain CSS class so no Tailwind arbitrary-value or inherit-cascade
    tricks can swallow the text color. */

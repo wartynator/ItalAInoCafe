@@ -316,7 +316,7 @@ export function VisitForm({
       )}
 
       {/* Sticky save bar on mobile, inline on desktop */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-line)] bg-[var(--color-bg)]/95 px-5 py-3 backdrop-blur md:static md:border-0 md:bg-transparent md:px-0 md:py-0">
+      <div className="safe-pb fixed inset-x-0 bottom-0 z-40 border-t border-[var(--color-line)] bg-[var(--color-bg)]/95 px-5 pt-3 backdrop-blur md:static md:border-0 md:bg-transparent md:px-0 md:py-0">
         <div className="mx-auto flex max-w-[640px] items-center justify-between gap-3 md:justify-end">
           <button
             type="button"

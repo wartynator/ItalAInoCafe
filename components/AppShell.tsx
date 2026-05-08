@@ -31,7 +31,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <Link
             href="/new"
             aria-label="New coffee"
-            className="btn-primary fixed bottom-5 right-5 z-30 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-lg md:hidden"
+            className="btn-primary safe-bottom-fab fixed right-5 z-30 grid h-14 w-14 place-items-center rounded-full text-2xl shadow-lg md:hidden"
           >
             +
           </Link>
