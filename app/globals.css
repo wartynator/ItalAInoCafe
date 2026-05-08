@@ -107,6 +107,15 @@ button:focus-visible {
 .leaflet-container {
   background: var(--color-bg);
   font-family: var(--font-sans);
+  z-index: 0;
+}
+/* Leaflet's internal panes and controls use z-index up to 1000; cap them
+   so the sidebar drawer (z-50) and modals can sit above the map. */
+.leaflet-pane,
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control {
+  z-index: 1 !important;
 }
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
